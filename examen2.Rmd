@@ -1,0 +1,36 @@
+---
+title: "Matière à l'examen 2"
+author: "Thierry Paré"
+output: pdf_document
+---
+
+# Statistiques exhaustives
+
+Une statistique est dite exhaustive quand celle-ci contient l'ensemble de l'information sur les paramètres de la loi de probabilité. 
+
+## Définition formelle
+
+Soit $X$, un échantillon aléatoire d'une distribution de paramètre $\theta$ inconne. Alors, la statistique $T = T(X_1, ..., X_n)$ est exhaustive pour $\theta$ si la distibution conditionnelle de $T$ ne dépend pas de $\theta$.
+
+## Fisher-Neyman
+
+Le théorème de Fisher-Neyman révèle que si $f(x_1, \theta) \times ...\times f(x_n, \theta)$ peut être réécrit sous la forme $g(t, \theta) \times h(x_1,...,x_n)$, alors la statistique $T = T(X_1, ..., X_2)$ est exhaustive pour $\theta$. Le théorème de Fisher-Neyman peut être généralisé quand la distribution a plus d'un paramètre inconnu. 
+
+## Statistiques exhaustive minimale
+
+Une statistique est exhaustive $T$ est minimale si pour toute autre statistique $U = U(X_1, ..., X_n$, il existe une fonction $g$ telle que $T = g(U(X_1,...,X_n))$
+
+## Critère de Lehmann-Scheffé
+
+On dit qu'une statistique est exhaustive minimale si pour tout $x_1,...,x_n$ et $y_1, ..., y_n$, $\frac{f(x_1, \theta) \times ... \times f(x_n, \theta)}{f(y_1, \theta) \times ... \times f(y_n, \theta)}$ ne dépend pas de $\theta$. 
+
+## Théorème de Rao-Blackwell
+
+Ce théorème permet de batîr un estimateur plus précis à partir d'un estimateur. Le théorème affirme que la variance de la statistique $\theta_n^* = E[\hat{\theta_n}|T]$ est plus petite ou égale à la variance de $\hat{\theta_n}$. On conclut de ce théorème que les meilleurs estimateurs sont les des fonctions des statistiques exhaustives. 
+
+## MVUE
+Pour plusieurs familles de distribution, l'estimateur sans biais et à variance minimale (MVUE) est 
+
+
+
+

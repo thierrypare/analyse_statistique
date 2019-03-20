@@ -1,0 +1,431 @@
+---
+title: "Matière à l'examen 1"
+author: "Thierry Paré"
+output: pdf_document
+---
+
+# Définitions importantes
+
+## Échantillon aléatoire
+
+Un échantillon aléatoire est un ensemble de variables aléatoire indépendantes et identiquement distribuées. Le mécanisme générateur de données est le même pour chaque observation de notre échantillon. Si les deux conditions suivantes sont respectées, nous sommes en présence d'un échantillon aléatoire : 
+
+* Est-ce que les observations sont **indépendantes** les unes des autres (aucune tendance ne peut être observée)?
+* Est-ce que le **mécanisme générateur de données** est le même pour chaque observation?
+
+## Statistique
+
+Une *statistique* est une fonction de **l’échantillon aléatoire** et de **constantes connues**. C'est une quantité qui peut être évaluée à partir de données observées. Une statistique **est une variable aléatoire**. Voici quelques exemples de statistiques :
+
+* Moyenne échantillonale
+* Variance échantillonale
+* Étendue échantillonale
+
+### Moyenne échantillonale
+
+La moyenne échantillonale est une statistique. Elle est définie ainsi :
+
+$$
+\bar{X}_n = \frac{1}{n} \sum_{i=1}^{n} X_i
+$$
+
+### Variance échantillonale
+
+La variance échantillonale est aussi une statistique. Elle est définie ainsi :
+
+$$
+S_n^2 = \frac{1}{n-1} \sum_{i=1}^{n} (X_i-X_n)^2
+$$
+
+## Distribution d'échantillonage
+
+La distribution d'une statistique est nommée la distribution d'échantillonage. 
+
+## Estimateur
+
+L'estimateur est une statistique qui estime différents paramètres, comme l'espérance ou la variance.
+
+# Théorèmes importants
+
+## Distribution d'une moyenne échantillonale normale
+
+Soit $X_i,...,X_n$ où $X_i \sim N(\mu, \sigma^2)$. Alors, 
+
+$$
+\bar{X} \sim N (\mu, \frac{\sigma^2}{n})
+$$
+
+*Note importante* : On utilise la loi de Student (notée $T_n$) quand on
+estime la variance($\sigma^2$) par la variance échantillonale($s_n^2$). 
+
+## Statistiques d'ordre
+
+On peut utiliser la formule suivante pour déterminer les fonctions de densité des différentes statistiques d'ordre :
+
+$$
+f_{X_{(k)}}(x) = \frac{n!}{(k-1)!(n-k)!} F(x)^{k-1} [1-F(x)]^{n-k}f(x)
+$$
+
+On utilise surtout les statistiques d'ordre pour déterminer la fonction de densité d'un minimum et d'un maximum. 
+
+### Fonction de densité d'un minimum
+
+Soit $Y=\min(X_1, ..., X_n)$.
+
+$$
+P(Y>y) = P(Y>X_i)^n = (1-F_x(y))^n
+$$
+
+Par conséquent,
+
+$$
+F_Y(y) = 1 - P(Y>y) = 1 - (1-F_x(y))^n
+$$
+
+On peut dériver le résultat pour obtenir $f_Y(y) = nf_X(y)[1-F_X(y)]^{n-1}$.
+
+### Fonction de densité d'un maximum
+
+Soit $Y=\max(X_1, ..., X_n)$.
+
+$$
+P(Y<y) = P(Y<X_i)^n = F_x(y)^n = F_Y(y)
+$$
+
+On peut dériver le résultat pour obtenir $f_Y(y) = nf_X(y)[F_X(y)]^{n-1}$.
+
+## Somme de normales centrées-réduites
+
+Soit $Z$, une variable aléatoire $N(0,1)$. Alors, 
+
+$$ 
+\sum_{i=1}^{n}Z_i^2 \sim \chi_n^2 
+$$
+
+## Distribution d'échantillonage de $S_n^2$
+
+$$
+\frac{n-1}{\sigma^2}S_n^2 \sim \chi_{(n-1)}^2
+$$
+
+Plus précisément, 
+
+$$
+\frac{n-1}{\sigma^2} S_n^2 = \frac{n -1}{\sigma^2}\times\frac{1}{n-1}\sum_{i=1}^{n} (X_i - \bar X)^2 = \frac{1}{\sigma^2}\sum_{i=1}^{n} (X_i - \bar X)^2
+$$
+
+## Distribution de la loi Student
+
+Soit $Z\sim N(0,1)$ et $W\sim \chi_\nu^2$ 
+
+$$ 
+T = \frac{Z}{\sqrt{W/\nu}} \sim t_{(\nu)} 
+$$
+
+## Distribution de $T_n$
+
+$$
+T_n = \sqrt{n} \times \frac{\bar{X_n} - \mu}{S_n} \sim t_{(n-1)}
+$$
+
+*Note importante* : Cette statistique est utilisée quand on utilise une 
+approximation de la variance (notée $S_n^2$)
+
+## La statistique F
+
+Soit $W_1\sim \chi_{\nu_1}^2$ et $W_2\sim \chi_{\nu_2}^2$ 
+
+$$
+F = \frac{W_1/\nu_1}{W_2/\nu_2} \sim F_{(\nu_1, \nu_2)}
+$$
+
+*Note importante* : $\frac{1}{F} \sim F_{(\nu_2, \nu_1)}$
+
+*Lecture de la table* : La table nous donne le quantile supérieur de niveau $0.05$ ($P(F<a) = 0.95$). On peut utiliser la relation suivante : $P(F\leq a) = P(\frac{1}{F} \geq \frac{1}{a}) = 1 - P(\frac{1}{F}\leq\frac{1}{a})$.
+
+## Comparaison de variances échantillonales
+
+$$
+F = \frac{S_n^2/\sigma_1^2}{S_m^2/\sigma_2^2} \sim F_{(n - 1, m - 1)}
+$$
+
+L'explication de cette relation est assez simple. On sait $\frac{i-1}{\sigma^2}S_i^2 \sim \chi_{(i-1)}^2$. Si on applique la statistique $F$ avec des grandeurs d'échantillon $n$ et $m$, on obtient :
+
+$$
+\frac{\frac{n-1}{\sigma^2}S_n^2/n-1}{\frac{m-1}{\sigma^2}S_m^2/m-1} = \frac{S_n^2/\sigma_1^2}{S_m^2/\sigma_2^2}  \sim F_{(n-1, m-1)}
+$$
+
+## Loi des grands nombres
+
+On dit qu'une valeur converge en probabilités quand
+
+$$ 
+\lim_{n\rightarrow \infty} P(|\bar X_n-\mu| > \epsilon) \rightarrow 0 
+$$
+
+De manière équivalente, on peut dire que 
+
+$$
+\lim_{n\rightarrow \infty} P(|\bar X_n-\mu| < \epsilon) \rightarrow 1
+$$
+
+Sa notation est la suivante : 
+
+$$
+\bar X_n \overset{P}{\to} \mu 
+$$
+
+## Le théorème central limite
+
+Le théorème central limite affirme que les distributions d'échantillonage de $\bar{X_n}$ se comporte comme une distribution normale lorsque $n \rightarrow \infty$. 
+
+Plus précisément,
+
+$$ 
+\lim_{n\rightarrow \infty} P(Z_n \leq x) \rightarrow \phi(x)
+$$
+
+
+C'est ce qu'on appelle la convergence en distribution. Sa notation est la suivante : 
+
+$$
+Z_n \overset{D}{\to} N(0,1)
+$$
+
+On définit $Z_n = \sqrt{n} \times \frac{\bar{X_n} - \mu}{\sigma}$.
+
+*Note importante* : Par le lemme de Slutsky, on peut prouver que $T_n$ converge en distribution vers $N(0,1)$. Ainsi, on peut utiliser l'approximation normale même quand on ne possède que la variance échantillonale.
+
+### L'approximation normale pour la loi binomiale
+
+Quand $n \rightarrow \infty$, on peut utiliser la loi normale pour approximer une binomiale. Il faut cependant appliquer une correction de continuité de $\pm0.5$. 
+
+## Biais des estimateurs
+
+$$
+B(\hat{\theta}) = E[\hat{\theta}] - \theta
+$$
+
+On dit qu'un estimateur est sans biais si $B(\hat{\theta}) = 0$ et qu'il est asymptotiquement sans biais si $B(\hat{\theta})\rightarrow 0$ quand $n\rightarrow \infty$. Sinon, on dit que l'estimateur est biaisé. 
+
+## EQM
+
+$$
+EQM(\hat{\theta})=E[(\hat{\theta}-\theta)^2] = var(\hat{\theta})-[B(\hat{\theta})]^2
+$$
+
+Le meilleur estimateur est l'estimateur avec le plus petit EQM. 
+
+## Convergence des estimateurs
+
+Trois manières de prouver la convergence d'un estimateur : 
+
+1. Par la loi des grands nombres
+2. On prouve que l'estimateur est sans biais et que sa variance tend vers 0 quand $n\rightarrow \infty$
+3. On utilise le fait que $g(\hat{\theta}) \overset P{\to} g(\theta)$
+
+# Trucs et astuces
+
+$$
+X=n\bar{X}
+$$
+
+$$
+\Gamma(1/2) = \sqrt{\pi}
+$$
+
+# Rappels du cours de probabilités
+
+## Transformation à plusieurs variables avec le Jacobien
+
+Ici, $r = f(x,y)$ et $t = f(x,y)$. On a alors le Jacobien : 
+$$ 
+J = 
+\begin{bmatrix}
+\frac{\partial x}{\partial r} & \frac{\partial x}{\partial t} \\
+\frac{\partial y}{\partial r} & \frac{\partial y}{\partial t} 
+\end{bmatrix}
+$$
+
+## Définition de la fonction exponentielle
+
+Par définition, 
+
+$$
+e^x = \sum_{i=1}^{\infty} \frac{x^n}{n!}
+$$
+
+## Détermination d'une fonction marginale par la fonction conjointe.
+
+Soit la fonction conjointe $f_{X,Y}(x,y)$. Alors, $f_X(x) = \int_{-\infty}^{\infty} f_{X,Y}(x,y) dy$ et $f_Y(y) = \int_{-\infty}^{\infty} f_{X,Y}(x,y) dx$.
+
+## L'inégalité de Tchebysheff
+
+$$ 
+P(|Z - E[Z]| > \epsilon) \leq \frac{var(Z)}{\epsilon^2} 
+$$
+
+## La chi-carrée
+
+La chi-carrée est une loi Gamma avec $\alpha=\frac{n}{2}$ et $\lambda=\frac{1}{2}$.
+
+$$
+\chi_{n}^2\sim Gamma(\frac{n}{2}, \frac{1}{2})
+$$
+
+Soit $X\sim\chi_{n}^2$,
+
+$$
+E[X] = n
+$$ 
+$$
+var(X) = 2n
+$$
+$$
+f_X(x)=\frac{x^{\frac{n}{2} -1}e^{\frac{-x}{2}}}{2^\frac{n}{2}\Gamma(\frac{n}{2})}
+$$
+
+# Exemples intéressants
+
+## Estimation d'un intervalle avec la statistique T
+
+On sait que :
+```{r}
+s_n <- 0.425
+n <- 100
+```
+
+On cherche à determiner la probabilité que $\bar{X_n}$ soit à moins de deux 
+écarts-types de $\mu$.
+
+```{r}
+int_conf <- 2 * s_n / sqrt(n)
+```
+
+On se retrouve avec 
+
+$$
+P(|\bar{X_n} - \mu | \leq \frac{2S_n}{\sqrt{n}}) = P({\sqrt{n}} \times |\bar{X_n} - \mu| \leq {2s_n})
+$$
+
+En divisant par l'écart-type échantillonale, on obtient :
+
+$$
+P({\sqrt{n}} \times |\frac{\bar{X_n} - \mu}{s_n}| \leq 2) = P(|T_{(99)}| \leq 2)
+$$
+
+```{r}
+( conf <- 2 * pt(2, n - 1) - 1 )
+```
+
+On est donc confiant à `r conf` que la valeur de $\mu$ se trouve à $\pm$ `r int_conf`.
+
+## Représentation stochastique d'une loi F
+
+On doit déterminer la distribution de la statistique suivante :
+
+$$
+\frac{3(7 Y_1^2 + Y_2^2)}{U}
+$$
+
+Ici, $U\sim\chi_{(6)}^2$, $Y_1\sim N(0,\frac{1}{7})$ et $Y_2\sim N(0,1)$.
+
+On peut déduire que $\sqrt{7}Y_1\sim N(0,1)$ et que $(\sqrt{7}Y_1)^2 = 7 Y_1^2 \sim N(0,1)$. On sait que la somme de $n$ normales centrées réduites suit une chi-carrée de $n$ degrès de liberté. En posant $V = 7 Y_1^2 + Y_2^2$, on a donc que $V\sim \chi_{(2)}^2$
+
+$$
+\frac{3V}{U} = \frac{V/2}{U/6} \sim F_{(2,6)}
+$$
+
+## Détermination de $Y = X^2$
+
+Soit $X\sim N(0,\sigma^2)$. On désire déterminer la distribution de $Y = X^2$. On a :
+
+$$
+P(Y<y) = P(X^2 < y) = P(|X|<\sqrt{y}) = P(-\sqrt{y}<X<\sqrt{y})
+$$
+
+On a donc que 
+
+$$
+F_Y(y) = F_X(\sqrt{y}) - F_X(-\sqrt{y})
+$$
+
+Comme $X\sim N(0,\sigma ^2)$, $F_X(-\sqrt{y})=1 - F_X(\sqrt{y})$. Ainsi, 
+
+$$
+F_Y(y) = 2F_X(\sqrt{y}) - 1
+$$
+
+On détermine maintenant $f_Y(y)=\frac{dF_Y(y)}{dy}$.
+
+$$
+f_Y(y) = \frac{f_X(\sqrt{y})}{\sqrt{y}}
+$$
+
+On sait que 
+
+$$
+f_X(x)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{1}{2}\left(\frac{x}{\sigma}\right)^2}
+$$
+
+On a donc
+
+$$
+f_x(\sqrt{y})=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{1}{2}\left(\frac{\sqrt{y}}{\sigma}\right)^2} = \left(\frac{1}{2\sigma^2}\right)^\frac{1}{2}\times\frac{1}{\sqrt{\pi}}\times e^{-\left(\frac{1}{2\sigma^2}\right)(y)}
+$$
+
+Ainsi, 
+
+$$
+f_Y(y) = \frac{f_X(\sqrt{y})}{\sqrt{y}} = \left(\frac{1}{2\sigma^2}\right)^\frac{1}{2}\times\frac{1}{\sqrt{\pi}}\times e^{-\left(\frac{1}{2\sigma^2}\right)(y)} \times \frac{1}{\sqrt{y}}
+$$
+
+$$
+f_Y(y) = \left(\frac{1}{2\sigma^2}\right)^\frac{1}{2}\times\frac{1}{\sqrt{\pi}}\times e^{-\left(\frac{1}{2\sigma^2}\right)(y)} \times y^
+{-\frac{1}{2}} = \frac{\left(\frac{1}{2\sigma^2}\right)^\frac{1}{2} y^
+{-\frac{1}{2}} e^{-\left(\frac{1}{2\sigma^2}\right)(y)}}{\sqrt{\pi}}
+$$
+
+On sait que $\sqrt{\pi} = \Gamma\left(\frac{1}{2}\right)$. Par conséquent,
+
+$$
+f_Y(y) = \frac{\left(\frac{1}{2\sigma^2}\right)^\frac{1}{2} y^
+{-\frac{1}{2}} e^{-\left(\frac{1}{2\sigma^2}\right)(y)}}{\Gamma\left(\frac{1}{2}\right)}
+$$
+
+On déduit que $Y\sim G\left(\frac{1}{2},\frac{1}{2\sigma^2}\right)$. 
+
+### Convergence d'une distribution
+
+Soit $\hat{\theta} = X_{(1)} = \min(X_1, ...,X_n)$. On désire déterminer si $\hat{\theta}$ est convergent avec la définition $\hat{\theta}\overset{P}{\to} \theta = \lim_{n\rightarrow \infty} P(|\hat{\theta} - \theta| < \epsilon) \rightarrow 1$. De plus, $X \sim U(\theta, \theta+1)$.
+
+Déterminons d'abord la fonction de densité de $X_{(1)}$ : 
+
+$$
+f_{X_{(1)}}(x) = nf_{X_{(1)}}(x)[1-F_{X_{(1)}}(x)]^{n-1} = n(1)[1-(x-\theta)]^{n-1}=n(1-x+\theta)^{n-1}
+$$
+
+On a donc que
+
+$$
+P(|\hat{\theta} - \theta| < \epsilon) = P(\theta -\epsilon<\hat{\theta} <\theta +  \epsilon)
+$$
+
+Comme $\hat{\theta}$ est définie sur $[\theta, \theta+1]$, on a
+
+$$
+P(\theta -\epsilon<\hat{\theta} <\theta +  \epsilon) = P(\theta<\hat{\theta} <\theta +  \epsilon)
+$$
+
+On résout l'intégrale $\int_{\theta}^{\theta+\epsilon}n(1-x+\theta)^{n-1}dx$ en posant $u = 1-x+\theta$.
+
+$$
+\int_{\theta}^{\theta+\epsilon}n(1-x+\theta)^{n-1}dx = n\int_{1 - \epsilon}^{0}u^{n-1}dx =1-(1-\epsilon)^n
+$$
+
+Par conséquent, 
+$$
+\lim_{n\rightarrow \infty} P(|\hat{\theta} - \theta| < \epsilon) =\lim_{n\rightarrow \infty} 1-(1-\epsilon)^n = 1
+$$
+
+L'estimateur est donc convergent. 
