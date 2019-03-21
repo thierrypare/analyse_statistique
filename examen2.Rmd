@@ -2,7 +2,17 @@
 title: "Matière à l'examen 2"
 author: "Thierry Paré"
 output: pdf_document
+header-includes:
+   - \usepackage{mathtools}
+   - \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 ---
+# Caractéristiques d'un estimateur
+Pour être un bon estimateur, celui doit avoir quelques caractéristiques intéressantes :
+
+* Il devrait être sans biais (du moins asymptotiquement)
+* L'EQM ($V(\hat{\theta}) + B(\hat{\theta})$) devrait être petit
+* Il devrait être convergent
+* Il peut être construit à partir d'une statistique exhaustive.
 
 # Statistiques exhaustives
 
@@ -16,7 +26,7 @@ Soit $X$, un échantillon aléatoire d'une distribution de paramètre $\theta$ i
 
 Le théorème de Fisher-Neyman révèle que si $f(x_1, \theta) \times ...\times f(x_n, \theta)$ peut être réécrit sous la forme $g(t, \theta) \times h(x_1,...,x_n)$, alors la statistique $T = T(X_1, ..., X_2)$ est exhaustive pour $\theta$. Le théorème de Fisher-Neyman peut être généralisé quand la distribution a plus d'un paramètre inconnu. 
 
-## Statistiques exhaustive minimale
+# Statistiques exhaustive minimale
 
 Une statistique est exhaustive $T$ est minimale si pour toute autre statistique $U = U(X_1, ..., X_n$, il existe une fonction $g$ telle que $T = g(U(X_1,...,X_n))$
 
@@ -24,13 +34,100 @@ Une statistique est exhaustive $T$ est minimale si pour toute autre statistique 
 
 On dit qu'une statistique est exhaustive minimale si pour tout $x_1,...,x_n$ et $y_1, ..., y_n$, $\frac{f(x_1, \theta) \times ... \times f(x_n, \theta)}{f(y_1, \theta) \times ... \times f(y_n, \theta)}$ ne dépend pas de $\theta$. 
 
-## Théorème de Rao-Blackwell
+### Théorème de Rao-Blackwell
 
 Ce théorème permet de batîr un estimateur plus précis à partir d'un estimateur. Le théorème affirme que la variance de la statistique $\theta_n^* = E[\hat{\theta_n}|T]$ est plus petite ou égale à la variance de $\hat{\theta_n}$. On conclut de ce théorème que les meilleurs estimateurs sont les des fonctions des statistiques exhaustives. 
 
-## MVUE
-Pour plusieurs familles de distribution, l'estimateur sans biais et à variance minimale (MVUE) est 
+# MVUE
+Pour plusieurs familles de distribution, l'estimateur sans biais et à variance minimale (MVUE) peut être déterminée par une règle du pouce :
 
+* L'estimateur doit être sans biais
+* l'estimateur doit être une fonction d'une statistique exhaustive
 
+# Ajustement de modèles
 
+Il existe plusieurs méthodes pour estimer un paramètre. Nous en avons vu 3 dans le cadre du cours. 
 
+## Méthode des moments
+
+On détermine l'estimateur à partir des différents moment de la variable aléatoire étudiée. 
+
+# Méthode des quantiles 
+Pour estimer $t$ paramètres inconnus, on résoud le système de $t$ équations $\hat{\pi}_{k_j}=VaR_{k_j}(X)$, où $\hat{\pi}$ est le quantile empirique lissé correspondant. 
+
+## Quantiles empiriques lissés
+
+Les quantiles empiriques lissés sont définis comme suit : 
+$$
+\hat{\pi}_{k,n} = (1- h)X_{(j)}+hX_{(j+1)}
+$$
+
+où $j = \floor{(n + 1)\kappa}$ et $h=(n+1)\kappa - j$.
+
+## Méthode du maximum de vraisemblance
+
+L'estimateur est déterminé en trouvant le maximum de la fonction de vraisemblance. 
+
+### Fonction de vraisemblance
+
+Soit $X_1, ..., X_n$, un échantillon aléatoire d'une distribution avec densité $f(x, \theta)$. Si $x_1, ..., x_n$ sont les valeurs observées de l'échantillon, alors la vraisemblance est définie comme suit : 
+
+$$
+L(\theta) = f(x_1, \theta) \times ... \times f(x_n, \theta) 
+$$
+
+### Fonction de log-vraisemblance
+
+La méthode du maximum de vraisemblance se base sur la recherche des maximums par la dérivation. Les maximums d'une fonction se trouvent aux mêmes endroits que ceux de leur logarithme. On définit la log-vraisemblance ainsi : 
+
+$$
+l(\theta) = \ln[L(\theta)]
+$$
+
+### Propriétés de l'estimateur du maximum de vraisemblance
+
+Sous certaines conditions de régularité, on peut dire que :
+
+$$
+\hat{\theta} \approx N\left(\theta, \frac{1}{nI(\theta)}\right)
+$$
+
+On définit 
+
+$$
+I(\theta) = E\left[ \left( \frac{\partial}{\partial\theta} \ln f(X, \theta) \right)^2\right] = E\left[- \frac{\partial^2}{\partial \theta ^2} \ln f(X, \theta)\right]
+$$
+
+On peut aussi prouver que l'estimateur tend vers la valeur réelle ($\hat \theta \overset{P}{\to} \theta$) et que sa variance tend vers 0.
+
+# Inégalité de Rao-Cramer
+
+$$
+var(\hat\theta_n) \geq \frac{1}{nI(\theta)}
+$$
+
+Quand l'estimateur $var(\hat\theta_n) = \frac{1}{nI(\theta)}$, on dit que l'estimateur est efficace pour le paramètre.
+
+### Propriété d'invariance (floue pour le moment)
+
+## Diagrammes Quantile-Quantile
+
+Le diagramme quantile-quantile compare les données empiriques et les données théoriques. 
+
+* Si le diagramme forme une ligne droite, le modèle est bien ajusté.
+* Si le diagramme forme une courbe vers le bas, les quantiles théoriques sont trop grands
+* Si le diagramme forme une courbe vers le hut, les quantiles théoriques sont trop petits
+
+### Critère d'information d'Akaike (AIC)
+
+Avec ce critère, on favorise plus les estimateurs qui ont un plus petit nombre d'estimateurs.
+
+$$
+AIC = 2(l(\hat \theta_n) + k)
+$$
+
+### Critère d'information bayésien de Schwarz (BIC)
+
+$$
+BIC = -2l(\hat \theta_n) + k\ln(n)
+$$
